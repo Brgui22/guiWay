@@ -37,14 +37,48 @@ h3 { font-size: 1.2rem; border-bottom: none; margin-top: 2rem; margin-bottom: 1r
 .pagar-btn { width: 100%; padding: 1rem; margin-top: 1rem; background: var(--accent-green); color: white; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
 .pagar-btn:hover { background-color: #45a049; transform: translateY(-2px); }
 
+/* Estilos das Abas de Pagamento */
+.payment-tabs { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 1.5rem; }
+.tab-btn { flex: 1; padding: 1rem; border: none; background-color: transparent; font-size: 1.1rem; font-weight: 600; cursor: pointer; color: var(--text-light); border-bottom: 3px solid transparent; transition: all 0.2s ease; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+.tab-btn.active { color: var(--primary-orange); border-bottom-color: var(--primary-orange); }
+.payment-content { display: none; }
+.payment-content.active { display: block; }
+
+/* Estilos do Conteúdo PIX */
+.pix-container { text-align: center; padding: 1rem 0; }
+.pix-container p { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-dark); }
+.fake-qrcode { max-width: 220px; width: 100%; margin-bottom: 1rem; border: 5px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+.copy-pix-code-btn { width: 100%; background-color: var(--border-color); color: var(--text-dark); border: none; padding: 0.8rem; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 0.5rem; transition: background-color 0.2s; }
+.copy-pix-code-btn:hover { background-color: #ccc; }
+
 /* --- COLUNA DE RESUMO (DIREITA) --- */
 .summary-column { background-color: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow); position: sticky; top: 2rem; }
-#resumo-pedido-lista { list-style: none; margin-bottom: 1rem; }
-#resumo-pedido-lista li { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; }
-#resumo-pedido-lista li:last-child { border-bottom: none; }
-#resumo-pedido-lista .item-info { display: flex; align-items: center; gap: 1rem; }
-#resumo-pedido-lista .item-info i { color: var(--primary-orange); width: 20px; text-align: center; }
-#resumo-pedido-lista .item-price { font-weight: 600; }
+
+/* ALTERADO: Estilos para a grade de resumo compacta */
+#resumo-pedido-lista.resumo-grid {
+    display: grid;
+    /* Duas colunas com tamanho mínimo, permitindo quebra se necessário */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem 1.5rem; /* Espaçamento vertical e horizontal */
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.resumo-grid .item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaço entre ícone e texto */
+    font-size: 0.9rem; /* Fonte um pouco menor */
+    word-break: break-word; /* Evita que palavras longas quebrem o layout */
+}
+
+.resumo-grid .item i {
+    color: var(--primary-orange);
+    width: 16px; /* Alinhamento consistente dos ícones */
+    text-align: center;
+}
+
 .opcoes-frete { margin-bottom: 1.5rem; }
 .frete-item { margin-bottom: 0.5rem; }
 .frete-item input { display: none; }
@@ -57,11 +91,11 @@ h3 { font-size: 1.2rem; border-bottom: none; margin-top: 2rem; margin-bottom: 1r
 .cupom-section { display: flex; gap: 0.5rem; }
 .cupom-section .input-com-icone { flex-grow: 1; }
 #aplicar-cupom-btn { background: var(--text-dark); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
-.calculo-total { margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem; }
+.calculo-total { margin-top: 1rem; }
 .calculo-total .linha-total { display: flex; justify-content: space-between; padding: 0.6rem 0; font-size: 1rem; }
 .calculo-total #linha-desconto { color: var(--accent-green); font-weight: 600; opacity: 0; transition: opacity 0.3s; }
 .calculo-total #linha-desconto.visible { opacity: 1; }
-.calculo-total .linha-total.final { font-size: 1.4rem; font-weight: bold; margin-top: 0.5rem; padding-top: 1rem; }
+.calculo-total .linha-total.final { font-size: 1.4rem; font-weight: bold; margin-top: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
 .calculo-total .linha-total.final span:last-child { color: var(--primary-orange); }
 
 /* --- ESTILOS GERAIS DE MODAL --- */
