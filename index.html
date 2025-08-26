@@ -8,13 +8,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-    <header>
-        <h1>GuiWay</h1>
-        <p>O seu lanche, do seu jeito.</p>
+    <header class="site-header">
+        <nav>
+            <div class="logo">
+                <h1>GuiWay</h1>
+            </div>
+            <div class="nav-icons">
+                <a href="#" aria-label="Minha Conta"><i class="fa-solid fa-user"></i></a>
+                <a href="#" aria-label="Meus Pedidos"><i class="fa-solid fa-shopping-bag"></i></a>
+                <a href="#" aria-label="Menu"><i class="fa-solid fa-bars"></i></a>
+            </div>
+        </nav>
     </header>
 
     <main class="builder-container">
@@ -40,7 +48,6 @@
         <div class="progress-bar-container">
             <div id="progress-bar"></div>
         </div>
-    
         <div class="total-bar-content">
             <div class="step-details">
                 <span id="step-counter">Passo 1 de 5</span>
@@ -53,7 +60,7 @@
         </div>
     </footer>
     
-    <div id="checkout-modal" class="checkout-modal-overlay" style="display: none;">
+    <div id="checkout-modal" class="checkout-modal-overlay">
         <div class="checkout-modal-content">
             <button id="close-modal-btn" class="close-modal-btn">&times;</button>
             <h2>Quase lá!</h2>
@@ -80,7 +87,6 @@
             <button class="confirm-order-btn">Confirmar Pedido</button>
         </div>
     </div>
-
 
     <script src="script.js"></script>
 </body>

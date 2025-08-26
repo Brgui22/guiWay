@@ -1,9 +1,9 @@
 /* --- VARIAVEIS GLOBAIS E RESET --- */
 :root {
-    --primary-orange: #FF6F00; /* Laranja vibrante para chamar atenção */
-    --accent-green: #4CAF50; /* Verde para indicar sucesso ou escolhas */
-    --background-white: #F7F7F7; /* Branco gelo para o fundo */
-    --text-dark: #2c2c2c; /* Preto um pouco acinzentado */
+    --primary-orange: #FF6F00;
+    --accent-green: #4CAF50;
+    --background-white: #F7F7F7;
+    --text-dark: #2c2c2c;
     --border-color: #E0E0E0;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
@@ -21,17 +21,46 @@ body {
     padding-bottom: 100px; /* Espaço para a barra inferior fixa */
 }
 
-/* --- CABEÇALHO --- */
-header {
-    text-align: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, var(--primary-orange), #ff8f00);
-    color: white;
+/* --- NOVO HEADER --- */
+.site-header {
+    background: white;
+    padding: 0 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1100; /* Acima da barra de totais */
 }
 
-header h1 {
-    font-size: 2.5rem;
+.site-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 70px;
+}
+
+.site-header .logo h1 {
+    font-size: 1.8rem;
     font-weight: 700;
+    color: var(--primary-orange);
+}
+
+.site-header .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.site-header .nav-icons a {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.site-header .nav-icons a:hover {
+    color: var(--primary-orange);
+    transform: scale(1.1);
 }
 
 /* --- CONTAINER PRINCIPAL (TELA DIVIDIDA) --- */
@@ -40,7 +69,7 @@ header h1 {
     grid-template-columns: 60% 40%;
     gap: 2rem;
     max-width: 1400px;
-    margin: 1rem auto;
+    margin: 2rem auto; /* Ajustado para dar espaço ao header */
     padding: 0 2rem;
 }
 
@@ -116,7 +145,7 @@ header h1 {
     border-radius: 16px;
     box-shadow: var(--shadow);
     position: sticky;
-    top: 2rem;
+    top: 90px; /* Distância do topo + altura do header */
     height: fit-content;
 }
 
@@ -174,15 +203,11 @@ header h1 {
     color: white;
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    overflow: hidden; /* Garante que a animação não vaze */
-    
-    /* ANIMAÇÃO DE FUNDO */
+    overflow: hidden;
     background-image: 
-        /* Camada 1: Gradiente escuro para legibilidade do texto */
         linear-gradient(rgba(44, 44, 44, 0.85), rgba(44, 44, 44, 0.85)),
-        /* Camada 2: Imagem do padrão de ingredientes */
-        url('https://png.pngtree.com/png-vector/20250103/ourmid/pngtree-fast-food-logo-with-burger-png-image_15023994.png');
-    background-size: 400px auto; /* Ajuste o tamanho da sua imagem de padrão */
+        url('https://i.imgur.com/gB2k0Wl.png');
+    background-size: 400px auto;
     animation: scroll-background 20s linear infinite;
 }
 
@@ -193,7 +218,6 @@ header h1 {
     padding: 1rem 2rem;
 }
 
-/* NOVO: Estilos para a barra de progresso e contador de passos */
 .progress-bar-container {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.2);
@@ -201,7 +225,7 @@ header h1 {
 }
 
 #progress-bar {
-    width: 0%; /* Inicia em 0, será atualizado via JS */
+    width: 0%;
     height: 100%;
     background-color: var(--accent-green);
     transition: width 0.5s ease-out;
@@ -249,9 +273,10 @@ header h1 {
     cursor: not-allowed;
 }
 
-
-/* --- MODAL DE CHECKOUT --- */
+/* --- MODAL DE CHECKOUT --- 
+*/
 .checkout-modal-overlay {
+    display: none !important;
     position: fixed;
     top: 0;
     left: 0;
@@ -262,13 +287,6 @@ header h1 {
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-.checkout-modal-overlay.show {
-    opacity: 1;
-    pointer-events: all;
 }
 
 .checkout-modal-content {
@@ -277,12 +295,7 @@ header h1 {
     border-radius: 16px;
     width: 90%;
     max-width: 500px;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
     position: relative;
-}
-.checkout-modal-overlay.show .checkout-modal-content {
-    transform: scale(1);
 }
 
 .close-modal-btn {
@@ -296,50 +309,16 @@ header h1 {
 }
 
 .checkout-modal-content h2 { color: var(--primary-orange); }
-
 #final-summary { margin: 1.5rem 0; }
-
-.checkout-financials .financial-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    font-size: 1rem;
-}
-
-.checkout-financials .financial-row.total {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--text-dark);
-    border-top: 2px solid var(--border-color);
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-}
-.checkout-financials .financial-row.total span:last-child {
-    color: var(--accent-green);
-}
-
+.checkout-financials .financial-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 1rem; }
+.checkout-financials .financial-row.total { font-size: 1.3rem; font-weight: bold; color: var(--text-dark); border-top: 2px solid var(--border-color); margin-top: 0.5rem; padding-top: 0.5rem; }
+.checkout-financials .financial-row.total span:last-child { color: var(--accent-green); }
 .coupon-section { display: flex; margin: 1rem 0; gap: 0.5rem; }
 #coupon-input { flex-grow: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 8px; }
 #apply-coupon-btn { background: var(--text-dark); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
-
-.confirm-order-btn {
-    width: 100%;
-    padding: 1rem;
-    margin-top: 1rem;
-    background: var(--accent-green);
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
+.confirm-order-btn { width: 100%; padding: 1rem; margin-top: 1rem; background: var(--accent-green); color: white; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
 
 @keyframes scroll-background {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: -400px 0; /* A largura da sua imagem de padrão */
-    }
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
 }
