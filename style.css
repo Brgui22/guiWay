@@ -181,7 +181,7 @@ header h1 {
         /* Camada 1: Gradiente escuro para legibilidade do texto */
         linear-gradient(rgba(44, 44, 44, 0.85), rgba(44, 44, 44, 0.85)),
         /* Camada 2: Imagem do padrão de ingredientes */
-        url('https://i.imgur.com/gB2k0Wl.png');
+        url('https://png.pngtree.com/png-vector/20250103/ourmid/pngtree-fast-food-logo-with-burger-png-image_15023994.png');
     background-size: 400px auto; /* Ajuste o tamanho da sua imagem de padrão */
     animation: scroll-background 20s linear infinite;
 }
