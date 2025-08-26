@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuiWay - Monte seu Lanche</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>GuiWay</h1>
+        <p>O seu lanche, do seu jeito.</p>
+    </header>
+
+    <main class="builder-container">
+        <section class="options-panel">
+            <h2 id="step-title"></h2>
+            <div id="options-grid" class="options-grid">
+                </div>
+        </section>
+
+        <aside class="summary-panel">
+            <h2>Montagem do seu Lanche</h2>
+            <div class="sandwich-visual-container">
+                <div id="sandwich-visual" class="sandwich-visual">
+                    </div>
+            </div>
+            <h3>Itens Escolhidos:</h3>
+            <ul id="summary-list" class="summary-list">
+                </ul>
+        </aside>
+    </main>
+
+    <footer class="total-bar">
+        <div class="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+    
+        <div class="total-bar-content">
+            <div class="step-details">
+                <span id="step-counter">Passo 1 de 5</span>
+            </div>
+            <div class="price-details">
+                <span>Subtotal:</span>
+                <strong id="subtotal">R$ 0,00</strong>
+            </div>
+            <button id="next-step-btn" disabled>Próxima Etapa <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </footer>
+    
+    <div id="checkout-modal" class="checkout-modal-overlay" style="display: none;">
+        <div class="checkout-modal-content">
+            <button id="close-modal-btn" class="close-modal-btn">&times;</button>
+            <h2>Quase lá!</h2>
+            <p>Confira o resumo do seu pedido:</p>
+            <div id="final-summary"></div>
+            <div class="checkout-financials">
+                <div class="financial-row">
+                    <span>Subtotal</span>
+                    <span id="final-subtotal">R$ 0,00</span>
+                </div>
+                 <div class="financial-row">
+                    <span>Taxa de Entrega</span>
+                    <span id="delivery-fee">R$ 5,00</span>
+                </div>
+                <div class="coupon-section">
+                    <input type="text" id="coupon-input" placeholder="Cupom de desconto">
+                    <button id="apply-coupon-btn">Aplicar</button>
+                </div>
+                 <div class="financial-row total">
+                    <span>Total</span>
+                    <span id="final-total">R$ 0,00</span>
+                </div>
+            </div>
+            <button class="confirm-order-btn">Confirmar Pedido</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

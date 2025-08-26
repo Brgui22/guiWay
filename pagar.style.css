@@ -1,0 +1,92 @@
+/* --- VARIAVEIS GLOBAIS E RESET --- */
+:root {
+    --primary-orange: #FF6F00;
+    --accent-green: #4CAF50;
+    --background-white: #F9F9F9;
+    --text-dark: #2c2c2c;
+    --text-light: #757575;
+    --border-color: #E0E0E0;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    --success-color: #28a745;
+    --star-color: #FFC107;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--background-white); color: var(--text-dark); }
+
+/* --- CABEÇALHO --- */
+header { text-align: center; padding: 2rem; background: linear-gradient(135deg, var(--primary-orange), #ff8f00); color: white; margin-bottom: 2rem; }
+header h1 { font-size: 2.5rem; font-weight: 700; }
+
+/* --- LAYOUT PRINCIPAL --- */
+.checkout-container { display: grid; grid-template-columns: 1fr 450px; gap: 2rem; max-width: 1300px; margin: 0 auto; padding: 0 2rem; align-items: flex-start; }
+h2, h3 { display: flex; align-items: center; gap: 0.75rem; font-size: 1.6rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-orange); }
+h3 { font-size: 1.2rem; border-bottom: none; margin-top: 2rem; margin-bottom: 1rem; color: var(--text-dark); }
+
+/* --- COLUNA DE PAGAMENTO (ESQUERDA) --- */
+.payment-column { background-color: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow); }
+.form-grupo { display: flex; flex-direction: column; margin-bottom: 1.25rem; }
+.form-linha { display: flex; gap: 1rem; }
+.form-linha .form-grupo { flex: 1; }
+.payment-column label { margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+.input-com-icone { position: relative; }
+.input-com-icone i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-light); }
+.input-com-icone input { padding-left: 40px !important; }
+.payment-column input, .summary-column input { width: 100%; padding: 0.85rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
+.payment-column input:focus, .summary-column input:focus { outline: none; border-color: var(--primary-orange); box-shadow: 0 0 0 3px #ff70003a; }
+.pagar-btn { width: 100%; padding: 1rem; margin-top: 1rem; background: var(--accent-green); color: white; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
+.pagar-btn:hover { background-color: #45a049; transform: translateY(-2px); }
+
+/* --- COLUNA DE RESUMO (DIREITA) --- */
+.summary-column { background-color: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow); position: sticky; top: 2rem; }
+#resumo-pedido-lista { list-style: none; margin-bottom: 1rem; }
+#resumo-pedido-lista li { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; }
+#resumo-pedido-lista li:last-child { border-bottom: none; }
+#resumo-pedido-lista .item-info { display: flex; align-items: center; gap: 1rem; }
+#resumo-pedido-lista .item-info i { color: var(--primary-orange); width: 20px; text-align: center; }
+#resumo-pedido-lista .item-price { font-weight: 600; }
+.opcoes-frete { margin-bottom: 1.5rem; }
+.frete-item { margin-bottom: 0.5rem; }
+.frete-item input { display: none; }
+.frete-item label { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
+.frete-item label span { display: flex; align-items: center; gap: 0.75rem; }
+.frete-item label i { color: var(--text-light); transition: color 0.2s; }
+.frete-item label:hover { border-color: #c9c9c9; }
+.frete-item input:checked + label { border-color: var(--primary-orange); background-color: #fffaf0; }
+.frete-item input:checked + label i { color: var(--primary-orange); }
+.cupom-section { display: flex; gap: 0.5rem; }
+.cupom-section .input-com-icone { flex-grow: 1; }
+#aplicar-cupom-btn { background: var(--text-dark); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+.calculo-total { margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem; }
+.calculo-total .linha-total { display: flex; justify-content: space-between; padding: 0.6rem 0; font-size: 1rem; }
+.calculo-total #linha-desconto { color: var(--accent-green); font-weight: 600; opacity: 0; transition: opacity 0.3s; }
+.calculo-total #linha-desconto.visible { opacity: 1; }
+.calculo-total .linha-total.final { font-size: 1.4rem; font-weight: bold; margin-top: 0.5rem; padding-top: 1rem; }
+.calculo-total .linha-total.final span:last-child { color: var(--primary-orange); }
+
+/* --- ESTILOS GERAIS DE MODAL --- */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s 0.3s; }
+.modal-overlay.show { opacity: 1; visibility: visible; transition: opacity 0.3s ease; }
+.modal-content { background-color: white; padding: 2.5rem; border-radius: 16px; text-align: center; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); width: 90%; max-width: 500px; transform: scale(0.9); transition: transform 0.3s ease; }
+.modal-overlay.show .modal-content { transform: scale(1); }
+.modal-content h2 { border-bottom: none; justify-content: center; margin-bottom: 0.5rem; }
+.modal-content p { color: var(--text-light); margin-bottom: 2rem; font-size: 1.1rem; }
+.modal-content .icon-success { color: var(--success-color); margin-bottom: 1rem; }
+.modal-actions { display: flex; gap: 1rem; justify-content: center; }
+.modal-btn { padding: 0.8rem 1.5rem; border-radius: 8px; border: none; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.modal-btn.primary { background-color: var(--primary-orange); color: white; }
+.modal-btn.primary:hover { background-color: #ff8f00; transform: translateY(-2px); }
+.modal-btn.secondary { background-color: var(--border-color); color: var(--text-dark); }
+.modal-btn.secondary:hover { background-color: #ccc; }
+.modal-btn.full-width { width: 100%; }
+
+/* --- MODAL DE RASTREIO --- */
+.fake-map { position: relative; height: 200px; background-color: #f0f0f0; border-radius: 12px; margin-bottom: 1.5rem; background-image: linear-gradient(45deg, #e9e9e9 25%, transparent 25%), linear-gradient(-45deg, #e9e9e9 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e9e9e9 75%), linear-gradient(-45deg, transparent 75%, #e9e9e9 75%); background-size: 20px 20px; display: flex; justify-content: center; align-items: center; }
+.map-marker { background-color: var(--primary-orange); color: white; padding: 0.5rem 1rem; border-radius: 1rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+
+/* --- MODAL DE FEEDBACK --- */
+.rating-stars { color: var(--border-color); font-size: 2.5rem; margin-bottom: 1.5rem; }
+.rating-stars i { margin: 0 0.3rem; cursor: pointer; transition: color 0.2s, transform 0.2s; }
+.rating-stars i:hover { transform: scale(1.2); }
+.rating-stars i.active { color: var(--star-color); }
+#feedback-text { width: 100%; min-height: 100px; padding: 0.8rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; resize: vertical; font-size: 1rem; }

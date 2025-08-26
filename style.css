@@ -1,0 +1,345 @@
+/* --- VARIAVEIS GLOBAIS E RESET --- */
+:root {
+    --primary-orange: #FF6F00; /* Laranja vibrante para chamar atenção */
+    --accent-green: #4CAF50; /* Verde para indicar sucesso ou escolhas */
+    --background-white: #F7F7F7; /* Branco gelo para o fundo */
+    --text-dark: #2c2c2c; /* Preto um pouco acinzentado */
+    --border-color: #E0E0E0;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-white);
+    color: var(--text-dark);
+    padding-bottom: 100px; /* Espaço para a barra inferior fixa */
+}
+
+/* --- CABEÇALHO --- */
+header {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-orange), #ff8f00);
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+/* --- CONTAINER PRINCIPAL (TELA DIVIDIDA) --- */
+.builder-container {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* --- PAINEL DE OPÇÕES (ESQUERDA) --- */
+.options-panel {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+#step-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-orange);
+    padding-bottom: 0.5rem;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.option-card {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    text-align: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.option-card.selected {
+    border-color: var(--primary-orange);
+    background-color: #fffaf0;
+    box-shadow: 0 0 0 3px var(--primary-orange);
+}
+
+.option-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.option-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.option-card p {
+    font-size: 0.9rem;
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+
+/* --- PAINEL DE RESUMO (DIREITA) --- */
+.summary-panel {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+}
+
+.summary-panel h2, .summary-panel h3 {
+    margin-bottom: 1rem;
+}
+
+.sandwich-visual-container {
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+}
+
+.sandwich-visual {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.sandwich-visual img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    transition: all 0.5s ease-in-out;
+    bottom: 0;
+}
+
+.summary-list {
+    list-style: none;
+}
+
+.summary-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+}
+
+.summary-list li:last-child {
+    border-bottom: none;
+}
+
+/* --- BARRA INFERIOR FIXA --- */
+.total-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden; /* Garante que a animação não vaze */
+    
+    /* ANIMAÇÃO DE FUNDO */
+    background-image: 
+        /* Camada 1: Gradiente escuro para legibilidade do texto */
+        linear-gradient(rgba(44, 44, 44, 0.85), rgba(44, 44, 44, 0.85)),
+        /* Camada 2: Imagem do padrão de ingredientes */
+        url('https://i.imgur.com/gB2k0Wl.png');
+    background-size: 400px auto; /* Ajuste o tamanho da sua imagem de padrão */
+    animation: scroll-background 20s linear infinite;
+}
+
+.total-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+/* NOVO: Estilos para a barra de progresso e contador de passos */
+.progress-bar-container {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 6px;
+}
+
+#progress-bar {
+    width: 0%; /* Inicia em 0, será atualizado via JS */
+    height: 100%;
+    background-color: var(--accent-green);
+    transition: width 0.5s ease-out;
+}
+
+.step-details {
+    font-size: 1rem;
+    font-weight: 600;
+    flex-grow: 1;
+}
+
+.price-details {
+    font-size: 1.2rem;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.price-details strong {
+    font-size: 1.5rem;
+    color: var(--primary-orange);
+    margin-left: 0.5rem;
+}
+
+#next-step-btn {
+    flex-grow: 1;
+    max-width: 220px;
+    background-color: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+#next-step-btn:hover:not(:disabled) {
+    background-color: #ff8f00;
+}
+
+#next-step-btn:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+
+/* --- MODAL DE CHECKOUT --- */
+.checkout-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.checkout-modal-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.checkout-modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+.checkout-modal-overlay.show .checkout-modal-content {
+    transform: scale(1);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.checkout-modal-content h2 { color: var(--primary-orange); }
+
+#final-summary { margin: 1.5rem 0; }
+
+.checkout-financials .financial-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.checkout-financials .financial-row.total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    border-top: 2px solid var(--border-color);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+}
+.checkout-financials .financial-row.total span:last-child {
+    color: var(--accent-green);
+}
+
+.coupon-section { display: flex; margin: 1rem 0; gap: 0.5rem; }
+#coupon-input { flex-grow: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 8px; }
+#apply-coupon-btn { background: var(--text-dark); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+
+.confirm-order-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    background: var(--accent-green);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@keyframes scroll-background {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -400px 0; /* A largura da sua imagem de padrão */
+    }
+}

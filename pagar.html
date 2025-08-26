@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuiWay - Pagamento</title>
+    <link rel="stylesheet" href="pagar.style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>GuiWay</h1>
+        <p>Finalize seu Pedido</p>
+    </header>
+
+    <main class="checkout-container">
+        <section class="payment-column">
+            <h2><i class="fa-solid fa-credit-card"></i> Pagamento</h2>
+            <form id="payment-form">
+                <div class="form-grupo">
+                    <label for="nome-cartao">Nome no Cartão</label>
+                    <div class="input-com-icone">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="nome-cartao" placeholder="Nome completo como no cartão" required>
+                    </div>
+                </div>
+                <div class="form-grupo">
+                    <label for="num-cartao">Número do Cartão</label>
+                    <div class="input-com-icone">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <input type="text" id="num-cartao" placeholder="0000 0000 0000 0000" required>
+                    </div>
+                </div>
+                <div class="form-linha">
+                    <div class="form-grupo">
+                        <label for="validade">Validade</label>
+                        <div class="input-com-icone">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <input type="text" id="validade" placeholder="MM/AA" required>
+                        </div>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="cvv">CVV</label>
+                        <div class="input-com-icone">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="text" id="cvv" placeholder="123" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="pagar-btn">Pagar Agora</button>
+            </form>
+        </section>
+
+        <aside class="summary-column">
+            <h2><i class="fa-solid fa-receipt"></i> Resumo do Pedido</h2>
+            <ul id="resumo-pedido-lista"></ul>
+            <h3><i class="fa-solid fa-truck-fast"></i> Opções de Entrega</h3>
+            <div class="opcoes-frete">
+                <div class="frete-item">
+                    <input type="radio" id="frete-normal" name="frete" value="5.00" checked>
+                    <label for="frete-normal">
+                        <span><i class="fa-solid fa-truck"></i> Entrega Normal (30-45 min)</span>
+                        <strong>R$ 5,00</strong>
+                    </label>
+                </div>
+                <div class="frete-item">
+                    <input type="radio" id="frete-express" name="frete" value="10.00">
+                    <label for="frete-express">
+                        <span><i class="fa-solid fa-rocket"></i> Entrega Expressa (15-25 min)</span>
+                        <strong>R$ 10,00</strong>
+                    </label>
+                </div>
+            </div>
+            <div class="cupom-section">
+                <div class="input-com-icone">
+                    <i class="fa-solid fa-tags"></i>
+                    <input type="text" id="cupom-input" placeholder="Cupom de desconto">
+                </div>
+                <button id="aplicar-cupom-btn">Aplicar</button>
+            </div>
+            <div class="calculo-total">
+                <div class="linha-total"><span>Subtotal</span><span id="subtotal">R$ 0,00</span></div>
+                <div class="linha-total"><span>Frete</span><span id="frete">R$ 0,00</span></div>
+                <div class="linha-total" id="linha-desconto" style="display: none;"><span>Desconto</span><span id="desconto">- R$ 0,00</span></div>
+                <div class="linha-total final"><span>Total a Pagar</span><span id="total">R$ 0,00</span></div>
+            </div>
+        </aside>
+    </main>
+
+    <div id="payment-success-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <i class="fa-solid fa-circle-check fa-4x icon-success"></i>
+            <h2>Pagamento Aprovado!</h2>
+            <p>Seu lanche já está sendo preparado com carinho.</p>
+            <div class="modal-actions">
+                <button id="track-order-btn" class="modal-btn primary">Acompanhar Pedido</button>
+                <button id="go-home-btn" class="modal-btn secondary">Voltar ao Início</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tracking-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2><i class="fa-solid fa-map-location-dot"></i> Acompanhe seu Pedido</h2>
+            <p>Previsão de Entrega: <strong id="delivery-time">30-45 minutos</strong></p>
+            <div class="fake-map">
+                <div class="map-marker">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Rastreio Aqui</span>
+                </div>
+            </div>
+            <button id="order-received-btn" class="modal-btn primary full-width">Pedido Recebido!</button>
+        </div>
+    </div>
+    
+    <div id="feedback-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2><i class="fa-solid fa-star-half-stroke"></i> Avalie sua Experiência</h2>
+            <p>Seu feedback nos ajuda a melhorar sempre!</p>
+            <div class="rating-stars">
+                <i class="fa-regular fa-star" data-value="1"></i>
+                <i class="fa-regular fa-star" data-value="2"></i>
+                <i class="fa-regular fa-star" data-value="3"></i>
+                <i class="fa-regular fa-star" data-value="4"></i>
+                <i class="fa-regular fa-star" data-value="5"></i>
+            </div>
+            <textarea id="feedback-text" placeholder="Gostou do lanche? A entrega foi rápida? Conte pra gente! (opcional)"></textarea>
+            <button id="submit-feedback-btn" class="modal-btn primary full-width">Enviar Avaliação</button>
+        </div>
+    </div>
+
+    <script src="pagar.js"></script>
+</body>
+</html>
